@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { interval } from 'rxjs';
+import { interval, map } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,9 @@ export class AppComponent implements OnInit{
   destroyRef=inject(DestroyRef);
 
   ngOnInit(): void {
-    const suscription = interval(1000).subscribe({
+    const suscription = interval(1000).pipe(
+      map((value) => value * 2)
+    ).subscribe({
       next(value) {
         console.log(value);
       },
